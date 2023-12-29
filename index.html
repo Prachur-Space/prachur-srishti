@@ -93,6 +93,25 @@
   -moz-transform:rotate(30deg);
   -webkit-transform:rotate(30deg);
   }
+
+#timer {  
+  font-size: 10em;
+  font-weight: 100;
+  color: #344767;
+  text-shadow: 0 0 20px #344767;
+  
+  div {
+    display: inline-block;
+    min-width: 90px;
+    
+    span {
+      color: #344767;
+      display: block;
+      font-size: .2em;
+      font-weight: 400;
+    }
+  }
+}
   </style>
 <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
@@ -402,6 +421,18 @@
         </div>
     </div>
     </div>
+    <!--Countdown-->
+    <div class="row pt-lg-6" id="Date1">
+      <div class="col-lg-3">
+        <div class="position-sticky pb-lg-5 pb-3 mt-lg-0 mt-5 ps-2" style="top: 100px">
+          <h3>Countdown to Your Birthday!</h3>
+          <h6 class="text-secondary font-weight-normal pe-3">15th June, 2024</h6>
+        </div>
+      </div>
+      <div class="col-lg-9">
+        <div id="timer"></div>
+    </div>
+    </div>
 </div>
 
 <div class="container">
@@ -636,6 +667,31 @@
 	  $(this).fadeOut(100,function(){ $(this).fadeIn(1000);  });
 	  });
 	});
+
+//Countdown
+function updateTimer() {
+  future  = Date.parse("June 15, 2024 00:00:00");
+  now     = new Date();
+  diff    = future - now;
+
+  days  = Math.floor( diff / (1000*60*60*24) );
+  hours = Math.floor( diff / (1000*60*60) );
+  mins  = Math.floor( diff / (1000*60) );
+  secs  = Math.floor( diff / 1000 );
+
+  d = days;
+  h = hours - days  * 24;
+  m = mins  - hours * 60;
+  s = secs  - mins  * 60;
+
+  document.getElementById("timer")
+    .innerHTML = "  " +
+      '<div>' + d + '<span> Days</span></div>' + " " +
+      '<div>' + h + '<span> Hours</span></div>' + "  " +
+      '<div>' + m + '<span> Minutes</span></div>' + "  " +
+      '<div>' + s + '<span> Seconds</span></div>' ;
+}
+setInterval('updateTimer()', 1000 );
 </script>
 </body>
 </html>
